@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab Switching Interface</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Hides inactive tab content */
+    .hidden-tab {
+      display: none;
+    }
+  </style>
+</head>
+<body class="p-10 bg-gray-100">
+  <!-- Tab Buttons -->
+  <div class="flex mb-4 border-b border-gray-300">
+    <button onclick="showTab('sharedFileTab')" id="sharedFileButton" class="px-4 py-2 font-semibold text-blue-600 border-b-2 border-blue-600 tab-button active-tab">Shared File</button>
+    <button onclick="showTab('localFileTab')" id="localFileButton" class="px-4 py-2 text-gray-600 tab-button">Local File</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div id="sharedFileTab" class="tab-content">
+    <h2 class="mb-4 text-lg font-semibold text-gray-700">Shared Files</h2>
+    <!-- Shared file content goes here -->
+    <p class="text-gray-600">This is the content for the Shared File tab.</p>
+  </div>
+
+  <div id="localFileTab" class="tab-content hidden-tab">
+    <h2 class="mb-4 text-lg font-semibold text-gray-700">Local Files</h2>
+    <!-- Local file content goes here -->
+    <p class="text-gray-600">This is the content for the Local File tab.</p>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      // Get all tab content and buttons
+      const tabs = document.querySelectorAll(".tab-content");
+      const buttons = document.querySelectorAll(".tab-button");
+
+      // Hide all tabs and remove active classes from buttons
+      tabs.forEach(tab => tab.classList.add("hidden-tab"));
+      buttons.forEach(button => button.classList.remove("active-tab", "text-blue-600", "border-blue-600", "font-semibold"));
+      buttons.forEach(button => button.classList.add("text-gray-600"));
+
+      // Show the selected tab and highlight the active button
+      document.getElementById(tabId).classList.remove("hidden-tab");
+      document.querySelector(`#${tabId}Button`).classList.add("active-tab", "text-blue-600", "border-blue-600", "font-semibold");
+    }
+  </script>
+</body>
+</html>

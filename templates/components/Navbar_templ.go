@@ -29,7 +29,7 @@ func Navbar() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"bg-gray-800 p-4 flex justify-between items-center\"><div class=\"text-lg font-semibold\">Peer-To-Peer Application</div><div class=\"flex items-center gap-4\"><button class=\"bg-blue-500 text-white px-4 py-2 rounded-md\">Create a new room</button> <button class=\"bg-yellow-500 text-gray-900 px-4 py-2 rounded-md\">Buy me a coffee</button> <button class=\"bg-blue-500 text-white px-4 py-2 rounded-md\">P2P APP</button><div class=\"flex items-center\"><img src=\"https://via.placeholder.com/40\" alt=\"User\" class=\"w-10 h-10 rounded-full\"> <span class=\"ml-2\">Nguyễn Ngọc Chiến Công</span></div></div></nav>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"flex items-center justify-between p-4 bg-gray-800\"><div class=\"text-lg font-semibold\">Peer-To-Peer Application</div><div class=\"flex items-center gap-4\"><button class=\"px-4 py-2 text-white bg-blue-500 rounded-md\">Create a new room</button> <button class=\"px-4 py-2 text-gray-900 bg-yellow-500 rounded-md\">Buy me a coffee</button> <button class=\"px-4 py-2 text-white bg-blue-500 rounded-md\">P2P APP</button><div class=\"flex items-center\"><span class=\"ml-2\">Nguyễn Ngọc Chiến Công</span></div></div></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

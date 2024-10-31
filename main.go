@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github/Dcberr/dto"
+	// "github/Dcberr/dto"
 	"github/Dcberr/templates"
 	"html/template"
 	"net/http"
@@ -27,13 +27,13 @@ func main() {
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
 
-    cards := []*dto.Card{
-        {Title: "Computer Network Files", Participants: "24", ImgUrl: "https://via.placeholder.com/80", ButtonText: "Join and share file now!"},
-        {Title: "Database Files", Participants: "60", ImgUrl: "https://via.placeholder.com/80", ButtonText: "Join and share file now!"},
-    }
+    // cards := []*dto.Card{
+    //     {Title: "Computer Network Files", Participants: "24", ImgUrl: "https://via.placeholder.com/80", ButtonText: "Join and share file now!"},
+    //     {Title: "Database Files", Participants: "60", ImgUrl: "https://via.placeholder.com/80", ButtonText: "Join and share file now!"},
+    // }
 
     e.GET("/", func(c echo.Context) error {
-  		index := templates.Index(cards)
+  		index := templates.Index3()
         return index.Render(context.Background(), c.Response().Writer)
     })
 

@@ -36958,6 +36958,14 @@ video {
     height: 24rem;
   }
 
+  .sm\:h-dvh {
+    height: 100dvh;
+  }
+
+  .sm\:h-svh {
+    height: 100svh;
+  }
+
   .sm\:h-auto {
     height: auto;
   }

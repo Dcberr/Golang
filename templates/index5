@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Interface</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="p-10 bg-gray-100">
+  <div class="overflow-auto border border-gray-300 rounded-lg shadow-md">
+    <table id="downloadTable" class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Name</th>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Size</th>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Status</th>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Down Speed</th>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Up Speed</th>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">ETA</th>
+          <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Seeds/Peers</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-700">
+        <!-- Existing rows go here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button to simulate a new download -->
+  <button onclick="addDownloadRow('New File', '200 MB', 0, '50 kB/s', '1 kB/s', '2m 30s', '1000/500')" class="p-2 mt-4 text-white bg-blue-500 rounded">Start New Download</button>
+
+  <script>
+    function addDownloadRow(name, size, progress, downSpeed, upSpeed, eta, seedsPeers) {
+      // Get the table body
+      const tableBody = document.querySelector("#downloadTable tbody");
+
+      // Create a new row
+      const row = document.createElement("tr");
+      row.classList.add("bg-white");
+
+      // Insert cells with file information
+      row.innerHTML = `
+        <td class="px-6 py-4 border-b border-gray-200">${name}</td>
+        <td class="px-6 py-4 border-b border-gray-200">${size}</td>
+        <td class="px-6 py-4 border-b border-gray-200">
+          <div class="flex items-center">
+            <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+              <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+            </div>
+            <span class="text-xs text-gray-600">${progress}%</span>
+          </div>
+        </td>
+        <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+        <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+        <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+        <td class="px-6 py-4 border-b border-gray-200">${seedsPeers}</td>
+      `;
+
+      // Append the new row to the table body
+      tableBody.appendChild(row);
+    }
+  </script>
+</body>
+</html>
