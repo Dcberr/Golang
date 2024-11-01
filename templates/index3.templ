@@ -1,0 +1,582 @@
+package templates
+
+import "github/Dcberr/templates/components"
+
+templ Index3() {
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>Peer-to-Peer Application</title>
+                <script src="https://cdn.tailwindcss.com"></script>
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                <link href="/css/output.css" rel="stylesheet"/>
+            </head>
+            <body class="font-sans bg-gray-800">
+                <div class="p-6 mx-auto max-w-screen-2xl">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        @components.Logo()
+                        <button class="flex px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 ">Log out
+                        <span class="material-symbols-outlined">
+                        logout
+                        </span>
+                        </button>
+                    </div>
+                    <!-- Profile Section -->
+                    <div class="flex items-center mb-6 space-x-3">
+                        <div class="flex items-center justify-center w-12 h-12 bg-purple-200 rounded-full">
+                            <img src="" alt="User" class="w-10 h-10 rounded-full" />
+                        </div>
+                        <div>
+                            <h2 class="font-medium text-white">Nguyễn Ngọc Chiến Công</h2>
+                            <p class="text-sm text-green-500">Online</p>
+                        </div>
+                    </div>
+                    <!-- Main Content -->
+                    <div class="grid grid-cols-12 gap-4">
+                        <!-- Sidebar -->
+                        <div class="col-span-3 p-4 bg-white rounded-lg shadow-md h-[41rem]">
+                            <div class="flex-auto">
+                                <h3 class="mb-4 text-lg font-medium">
+                                <span class="flex-auto material-symbols-outlined">
+                                info
+                                </span>
+                                Information Of Channel
+                                </h3>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center w-full px-3 py-2 space-x-6 text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200">
+                                    <span class="material-symbols-outlined">
+                                    server_person
+                                    </span>
+                                    Host name
+                                </div>
+                                <div class="flex items-center w-full px-3 py-2 text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200">
+                                    <span class="material-symbols-outlined">
+                                    call
+                                    </span> Contact
+                                </div>   
+                                <div class="flex items-center w-full px-3 py-2 text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200">
+                                    <span class="material-symbols-outlined">
+                                    sticky_note_2
+                                    </span> Description
+                                </div>
+                                <div class="flex items-center w-full px-3 py-2 text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200">
+                                    <span class="material-symbols-outlined">
+                                    toggle_on
+                                    </span> Status
+                                </div>
+                            </div>
+                            <button  class="flex justify-center w-full px-3 py-2 mt-4 text-purple-700 bg-purple-200 rounded-lg hover:bg-purple-300" >
+                            <span class="material-symbols-outlined">
+                                move_item
+                                </span>
+                            Exit Channel</button>
+                        </div>
+                        <!-- File Section -->
+                        <div class="col-span-9">
+                            <!-- File Tabs -->
+                            <div class="flex items-center mb-4">
+                                <button onclick="showTab('sharedFileTab', 'sharedFileButton')" id="sharedFileButton" class="flex items-center px-4 py-2 space-x-2 font-semibold text-purple-600 bg-purple-100 rounded-l-lg tab-button">
+                                <span class="material-symbols-outlined">
+                                share
+                                </span>
+                                Shared File</button>
+                                
+                                <button onclick="showTab('localFileTab', 'localFileButton')" id="localFileButton"  class="flex items-center px-4 py-2 space-x-2 text-gray-600 bg-white rounded-r-lg tab-button">
+                                <span class="material-symbols-outlined">
+                                    local_library
+                                    </span>Local File</button>
+                                <div class="ml-auto">
+                                    <button  id="downloadButton" disabled onclick="addDownloadRow('New File', '200 MB', '67', '50 kB/s', '1 kB/s', '2m 30s', 'false')" class="flex w-full px-4 py-2 mt-4 font-semibold text-white bg-purple-500 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <span class="material-symbols-outlined">    
+                                    download
+                                    </span>
+                                    Download File
+                                    </button>
+                                </div>
+                            </div>
+                            <script>
+
+                                function selectRow(row) {
+                                    // Deselect any previously selected row
+                                    let selectedRow = document.querySelector('.bg-blue-500');
+                                    if (selectedRow) selectedRow.classList.remove('bg-blue-500');
+
+                                    // Select the clicked row
+                                    row.classList.add('bg-blue-500');
+
+                                    // Enable the download button
+                                    document.getElementById('downloadButton').disabled = false;
+                                }
+
+                            
+                            </script>
+                            <div id="sharedFileTab" class="mt-4 tab-content">
+                                <div class="p-6 mb-4 bg-white rounded-lg shadow-md h-[34rem]">
+                                <div class="overflow-auto border border-gray-300 rounded-lg shadow-md">
+                                    <table id="downloadTable1" class="min-w-full bg-white">
+                                    <thead>
+                                        <tr>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Name</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Size</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Hash Information</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Online Seeder</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody  class="text-gray-700">
+                                        <tr class="cursor-pointer" onclick="selectRow(this)" class="bg-white">
+                                        <td class="px-6 py-4 border-b border-gray-200">Congdeptrai</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">95.7 MB</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">247.8 kB/s</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">5</td>
+
+                                        </tr>
+                                            
+                                        <!-- Additional rows for other files -->
+                                        
+                                        <tr class="cursor-pointer" onclick="selectRow(this)" class="bg-gray-50">
+                                        <td class="px-6 py-4 border-b border-gray-200">Cotrai</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">95.7 MB</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">247.8 kB/s</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">4</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+
+                                
+
+                                <script>
+                                   function selectRow(row) {
+                                        // Deselect any previously selected row
+                                        let selectedRow = document.querySelector('.bg-blue-500');
+                                        if (selectedRow) selectedRow.classList.remove('bg-blue-500');
+
+                                        // Select the clicked row
+                                        row.classList.add('bg-blue-500');
+
+                                        // Enable the download button
+                                        document.getElementById('downloadButton').disabled = false;
+                                    }
+                                </script>
+                            </div>
+                            
+                            <!-- Button to simulate a new download -->
+                            // <script>
+                            //     function addDownloadRow(name, size, progress, downSpeed, upSpeed, eta, isSafe) {
+                            //     // Get the table body
+                            //     const tableBody = document.querySelector("#downloadTable tbody");
+
+                            //     // Create a new row
+                            //     const row = document.createElement("tr");
+                            //     row.classList.add("bg-white");
+
+                            //     if(isSafe == 'true'){
+                            //         row.innerHTML = `
+                            //         <td class="px-6 py-4 border-b border-gray-200">${name}</td> 
+                            //         <td class="px-6 py-4 border-b border-gray-200">${size}</td> 
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //         <div class="flex items-center">
+                            //             <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                            //             <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+                            //             </div>
+                            //             <span class="text-xs text-gray-600">${progress}%</span>
+                            //         </div>
+                            //         </td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //             <div>
+                            //                 <span class="material-symbols-outlined">
+                            //                 safety_check
+                            //                 </span>
+                            //             </div>
+                            //         </td>
+                            //     `;
+                            //     }else{
+                            //         row.innerHTML = `
+                            //         <td class="px-6 py-4 border-b border-gray-200">${name}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${size}</td> 
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //         <div class="flex items-center">
+                            //             <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                            //             <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+                            //             </div>
+                            //             <span class="text-xs text-gray-600">${progress}%</span>
+                            //         </div>
+                            //         </td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //             <div>
+                            //                 <span class="material-symbols-outlined">
+                            //                 warning
+                            //                 </span>
+                            //             </div>
+                            //         </td>
+                            //     `;
+                            //     }
+
+                                
+
+                            //     // Insert cells with file information
+                            
+
+                            //     // Append the new row to the table body
+                            //     tableBody.appendChild(row);
+                            //     }
+                            // </script>
+                            // <!-- Upload Button -->
+                            // <div class="flex justify-end">
+                            // 	<button class="flex items-center px-4 py-2 text-purple-700 bg-purple-200 rounded-lg item hover:bg-purple-300">
+                            // 		<span class=" material-symbols-outlined">
+                            // 			upload
+                            // 		</span>
+                            // 		Upload File
+                            // 	</button>
+                            // </div>
+                            </div>
+
+                            <div id="localFileTab" class="hidden mt-4 tab-content">
+                                <div class="p-6 mb-4 bg-white rounded-lg shadow-md h-[34rem]">
+                                <div class="overflow-auto border border-gray-300 rounded-lg shadow-md">
+                                    <table id="downloadTable" class="min-w-full bg-white">
+                                    <thead>
+                                        <tr>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Name</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Size</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Status</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Down Speed</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Up Speed</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">ETA</th>
+                                        <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Is Safe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-700">
+                                        <tr class="bg-white">
+                                        <td class="px-6 py-4 border-b border-gray-200">Congdeptrai</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">95.7 MB</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">
+                                            <div class="flex items-center">
+                                            <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 68.1%"></div>
+                                            </div>
+                                            <span class="text-xs text-gray-600">68.1%</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 border-b border-gray-200">247.8 kB/s</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">0.6 kB/s</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">1m 24s</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">3,750</td>
+                                        </tr>
+                                        
+                                        <!-- Additional rows for other files -->
+                                        
+                                        <tr class="bg-gray-50">
+                                        <td class="px-6 py-4 border-b border-gray-200">Cong Sieu Dep Trai</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">9.8 MB</td>
+                                        <td class="px-6 py-4 text-green-500 border-b border-gray-200">Seeding</td>
+                                        <td class="px-6 py-4 border-b border-gray-200">∞</td>
+                                        <td class="px-6 py-4 border-b border-gray-200"></td>
+                                        <td class="px-6 py-4 border-b border-gray-200"></td>
+                                        <td class="px-6 py-4 border-b border-gray-200">2,025</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            </div>
+                            
+                            // <!-- File Display Area -->
+                            // <div class="p-6 mb-4 bg-white rounded-lg shadow-md h-[34rem]">
+                            // 	<div class="overflow-auto border border-gray-300 rounded-lg shadow-md">
+                            //         <table id="downloadTable" class="min-w-full bg-white">
+                            //         <thead>
+                            //             <tr>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Name</th>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Size</th>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Status</th>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Down Speed</th>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Up Speed</th>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">ETA</th>
+                            //             <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase border-b-2 border-gray-300">Is Safe</th>
+                            //             </tr>
+                            //         </thead>
+                            //         <tbody class="text-gray-700">
+                            //             <tr class="bg-white">
+                            //             <td class="px-6 py-4 border-b border-gray-200">Congdeptrai</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">95.7 MB</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">
+                            //                 <div class="flex items-center">
+                            //                 <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                            //                     <div class="bg-blue-500 h-2.5 rounded-full" style="width: 68.1%"></div>
+                            //                 </div>
+                            //                 <span class="text-xs text-gray-600">68.1%</span>
+                            //                 </div>
+                            //             </td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">247.8 kB/s</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">0.6 kB/s</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">1m 24s</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">3,750</td>
+                            //             </tr>
+                                        
+                            //             <!-- Additional rows for other files -->
+                                        
+                            //             <tr class="bg-gray-50">
+                            //             <td class="px-6 py-4 border-b border-gray-200">Cong </td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">9.8 MB</td>
+                            //             <td class="px-6 py-4 text-green-500 border-b border-gray-200">Seeding</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">∞</td>
+                            //             <td class="px-6 py-4 border-b border-gray-200"></td>
+                            //             <td class="px-6 py-4 border-b border-gray-200"></td>
+                            //             <td class="px-6 py-4 border-b border-gray-200">2,025</td>
+                            //             </tr>
+                            //         </tbody>
+                            //         </table>
+                            //     </div>
+                            // </div>
+                            
+                            // <!-- Button to simulate a new download -->
+                            // <script>
+                            //     function addDownloadRow(name, size, progress, downSpeed, upSpeed, eta, isSafe) {
+                            //     // Get the table body
+                            //     const tableBody = document.querySelector("#downloadTable tbody");
+
+                            //     // Create a new row
+                            //     const row = document.createElement("tr");
+                            //     row.classList.add("bg-white");
+
+                            //     if(isSafe == 'true'){
+                            //         row.innerHTML = `
+                            //         <td class="px-6 py-4 border-b border-gray-200">${name}</td> 
+                            //         <td class="px-6 py-4 border-b border-gray-200">${size}</td> 
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //         <div class="flex items-center">
+                            //             <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                            //             <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+                            //             </div>
+                            //             <span class="text-xs text-gray-600">${progress}%</span>
+                            //         </div>
+                            //         </td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //             <div>
+                            //                 <span class="material-symbols-outlined">
+                            //                 safety_check
+                            //                 </span>
+                            //             </div>
+                            //         </td>
+                            //     `;
+                            //     }else{
+                            //         row.innerHTML = `
+                            //         <td class="px-6 py-4 border-b border-gray-200">${name}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${size}</td> 
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //         <div class="flex items-center">
+                            //             <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                            //             <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+                            //             </div>
+                            //             <span class="text-xs text-gray-600">${progress}%</span>
+                            //         </div>
+                            //         </td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+                            //         <td class="px-6 py-4 border-b border-gray-200">
+                            //             <div>
+                            //                 <span class="material-symbols-outlined">
+                            //                 warning
+                            //                 </span>
+                            //             </div>
+                            //         </td>
+                            //     `;
+                            //     }
+
+                                
+
+                            //     // Insert cells with file information
+                            
+
+                            //     // Append the new row to the table body
+                            //     tableBody.appendChild(row);
+                            //     }
+                            // </script>
+
+                            <!-- Tab Button -->
+                            <script>
+                                function showTab(tabId, buttonId) {
+                                // Get all tab content and buttons
+                                const tabs = document.querySelectorAll(".tab-content");
+                                const buttons = document.querySelectorAll(".tab-button");
+
+                                // Hide all tabs and reset button styles
+                                tabs.forEach(tab => tab.classList.add("hidden"));
+                                buttons.forEach(button => {
+                                    button.classList.remove("bg-purple-100", "text-purple-600", "font-semibold");
+                                    button.classList.add("bg-white", "text-gray-600");
+                                });
+
+                                // Show the selected tab and apply active styles
+                                document.getElementById(tabId).classList.remove("hidden");
+                                document.getElementById(buttonId).classList.add("bg-purple-100", "text-purple-600", "font-semibold");
+                                }
+
+                                // Set default active tab on page load
+                                document.addEventListener("DOMContentLoaded", () => {
+                                showTab('sharedFileTab', 'sharedFileButton');   
+                                });
+                            </script>
+
+                            <script>
+                                function handleFileUpload(event) {
+                                const file = event.target.files[0];
+                                const fileNameDisplay = document.getElementById("file-name");
+                                fileNameDisplay.textContent = file ? `Selected file: ${file.name}` : "No file selected";
+                                }
+
+                                async function uploadFile() {
+                                    const form = document.getElementById("uploadForm");
+                                    const fileInput = document.getElementById("file-upload");
+                                    const statusMessage = document.getElementById("status-message");
+
+                                    // Check if a file is selected
+                                    if (fileInput.files.length === 0) {
+                                        statusMessage.textContent = "Please select a file first.";
+                                        return;
+                                    }
+
+                                    // Create FormData object to send the file
+                                    const formData = new FormData();
+                                    formData.append("file", fileInput.files[0]);
+
+                                    try {
+                                        // Make an asynchronous POST request to upload the file
+                                        const response = await fetch("/upload", {
+                                        method: "POST",
+                                        body: formData,
+                                        });
+
+                                        // Update the status message based on the response
+                                        if (response.ok) {
+                                        statusMessage.textContent = "File uploaded successfully!";
+                                        } else {
+                                        statusMessage.textContent = "File upload failed. Please try again.";
+                                        }
+                                    } catch (error) {
+                                        statusMessage.textContent = "An error occurred. Please try again.";
+                                    }
+                                    }
+                            </script>
+
+                            
+                            <!-- Button to simulate a new download -->
+                            <script>
+                                function addDownloadRow(name, size, progress, downSpeed, upSpeed, eta, isSafe) {
+                                // Get the table body
+                                const tableBody = document.querySelector("#downloadTable tbody");
+
+                                // Create a new row
+                                const row = document.createElement("tr");
+                                row.classList.add("bg-white");
+
+                                if(isSafe == 'true'){
+                                    row.innerHTML = `
+                                    <td class="px-6 py-4 border-b border-gray-200">${name}</td> 
+                                    <td class="px-6 py-4 border-b border-gray-200">${size}</td> 
+                                    <td class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-600">${progress}%</span>
+                                    </div>
+                                    </td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">
+                                        <div>
+                                            <span class="material-symbols-outlined">
+                                            safety_check
+                                            </span>
+                                        </div>
+                                    </td>
+                                `;
+                                }else{
+                                    row.innerHTML = `
+                                    <td class="px-6 py-4 border-b border-gray-200">${name}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${size}</td> 
+                                    <td class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex items-center">
+                                        <div class="w-36 bg-gray-200 rounded-full h-2.5 mr-2">
+                                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: ${progress}%"></div>
+                                        </div>
+                                        <span class="text-xs text-gray-600">${progress}%</span>
+                                    </div>
+                                    </td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${downSpeed}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${upSpeed}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">${eta}</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">
+                                        <div>
+                                            <span class="material-symbols-outlined">
+                                            warning
+                                            </span>
+                                        </div>
+                                    </td>
+                                `;
+                                }
+
+                                
+
+                                // Insert cells with file information
+                            
+
+                                // Append the new row to the table body
+                                tableBody.appendChild(row);
+                                }
+                            </script>
+                            <!-- Upload Button -->
+                            <div class="flex justify-end">
+                                <form id="uploadForm"  class="flex items-center space-x-4">
+                                    <label for="file-upload" class="flex items-center px-4 py-2 text-purple-700 transition bg-purple-200 rounded-lg cursor-pointer hover:bg-purple-300">
+                                        <span class="material-symbols-outlined">
+                                        folder_open
+                                        </span>
+                                        Choose File
+                                    </label>
+                                    <input id="file-upload" type="file" name="file" class="hidden" onchange="handleFileUpload(event)">
+                                    // <p id="file-name" class="text-gray-700"></p>
+                                    <button type="button" onclick="uploadFile()" class="flex px-4 py-2 text-purple-700 transition bg-purple-200 rounded-lg hover:bg-purple-300">
+                                        <span class="material-symbols-outlined">
+                                            upload
+                                        </span> 
+                                        Upload File
+                                    </button>
+                                    
+                                    
+                                    // <p  class="mt-2 text-gray-700"></p>
+
+                                    <p id="status-message" class="flex items-center px-3 py-2 space-x-6 text-purple-700 bg-purple-100 rounded-lg hover:bg-purple-200">
+                                        
+                                    </p>
+                                </form>
+                                
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </body>
+	</html>
+}
