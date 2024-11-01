@@ -1,11 +1,9 @@
 package dto
 
-type File struct {
-    Name string
-    Size string
-    Status int
-    DownSpeed string
-    UpSpeed string
-    ETA string
-    IsSafe bool
+import "time"
+
+type FileInfo struct {
+	ID       int       `db:"id"`
+	FilePath string    `db:"file_path"`
+	UploadedAt time.Time `db:"uploaded_at"`
 }

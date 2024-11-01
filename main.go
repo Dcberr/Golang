@@ -20,7 +20,6 @@ func renderTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
     }
     t.Execute(w, data)
 }
-
 func main() {
     e := echo.New()
 
