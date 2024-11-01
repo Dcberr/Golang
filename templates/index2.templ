@@ -4,64 +4,65 @@ templ Index2() {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabbed Interface</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="p-10 bg-gray-100">
-  <!-- Tab Buttons -->
-  <div class="flex">
-    <!-- Shared File Tab -->
-    <button onclick="showTab('sharedFileTab', 'sharedFileButton')" id="sharedFileButton" class="flex items-center px-4 py-2 space-x-2 font-semibold text-purple-600 bg-purple-100 rounded-l-lg tab-button">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 7a3 3 0 11-2.24 5.01l-2.72 1.7a3 3 0 110-3.42l2.72 1.7A3 3 0 1113 7zm-9 6a3 3 0 105.99-.001A3 3 0 004 13zm11.28-9.03a3 3 0 10-1.02 5.82l-2.72 1.7a3 3 0 100 1.42l2.72-1.7a3 3 0 101.02-5.82z"/></svg>
-      <span>Shared File</span>flex items-center px-4 py-2 space-x-2 font-semibold text-purple-600 bg-purple-100 rounded-l-lg tab-button
-    </button>
-
-    <!-- Local File Tab -->
-    <button onclick="showTab('localFileTab', 'localFileButton')" id="localFileButton" class="flex items-center px-4 py-2 space-x-2 text-gray-600 bg-white rounded-r-lg tab-button">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 00-.707.293l-5 5a1 1 0 000 1.414l5 5a1 1 0 001.414-1.414L6.414 10H15a1 1 0 100-2H6.414l3.293-3.293A1 1 0 009 2z"/></svg>
-      <span>Local File</span>
-    </button>
-  </div>
-
-  <!-- Tab Content -->
-  <div id="sharedFileTab" class="mt-4 tab-content">
-    @Index()
-  </div>
-
-  <div id="localFileTab" class="hidden mt-4 tab-content">
-    <h2 class="mb-4 text-lg font-semibold text-gray-700">Local Files</h2>
-    <p class="text-gray-600">This is the content for the Local File tab.</p>
-  </div>
-
-  <script>
-    function showTab(tabId, buttonId) {
-      // Get all tab content and buttons
-      const tabs = document.querySelectorAll(".tab-content");
-      const buttons = document.querySelectorAll(".tab-button");
-
-      // Hide all tabs and reset button styles
-      tabs.forEach(tab => tab.classList.add("hidden"));
-      buttons.forEach(button => {
-        button.classList.remove("bg-purple-100", "text-purple-600", "font-semibold");
-        button.classList.add("bg-white", "text-gray-600");
-      });
-
-      // Show the selected tab and apply active styles
-      document.getElementById(tabId).classList.remove("hidden");
-      document.getElementById(buttonId).classList.add("bg-purple-100", "text-purple-600", "font-semibold");
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Download</title>
+<style>
+    /* Styles for disabled button */
+    #downloadButton:disabled {
+        background-color: gray;
+        cursor: not-allowed;
     }
+    /* Styling for selected row */
+    .selected {
+        background-color: lightblue;
+    }
+</style>
+</head>
+<body>
+    <div class="file-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>SIZE</th>
+                    <th>HASH INFORMATION</th>
+                    <th>ONLINE SEEDER</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cursor-pointer"  onclick="selectRow(this)">
+                    <td>Congdeptra1</td>
+                    <td>95.7 MB</td>
+                    <td>247.8 kB/s</td>
+                    <td>5</td>
+                </tr>
+                <tr class="cursor-pointer" onclick="selectRow(this)">
+                    <td>Cotrai</td>
+                    <td>95.7 MB</td>
+                    <td>247.8 kB/s</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="downloadButton" disabled>Download File</button>
 
-    // Set default active tab on page load
-    document.addEventListener("DOMContentLoaded", () => {
-      showTab('sharedFileTab', 'sharedFileButton');
-    });
-  </script>
+    <script>
+        function selectRow(row) {
+            // Deselect any previously selected row
+            let selectedRow = document.querySelector('.selected');
+            if (selectedRow) selectedRow.classList.remove('selected');
+
+            // Select the clicked row
+            row.classList.add('selected');
+
+            // Enable the download button
+            document.getElementById('downloadButton').disabled = false;
+        }
+    </script>
 </body>
 </html>
-
-
 
 
 }
